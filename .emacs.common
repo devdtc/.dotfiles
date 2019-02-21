@@ -60,3 +60,4 @@
 (use-package helm
   :ensure t)
 
+(fset 'yes-or-no-p 'y-or-n-p)
