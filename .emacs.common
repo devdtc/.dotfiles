@@ -60,4 +60,4 @@
 (use-package helm
   :ensure t)
 
-(fset 'yes-or-no-p 'y-or-n-p)
+(fset 'yes-or-no-p 'y-or-n-p) ;; prompts accept y/n instead of yes/no
