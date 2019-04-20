@@ -18,6 +18,17 @@
   (require 'use-package))
 
 
+;; misc configs
+
+(fset 'yes-or-no-p 'y-or-n-p) ;; prompts accept y/n instead of yes/no
+(menu-bar-mode -1)
+
+(setq column-number-mode t)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
+(setq indent-line-function 'insert-tab)
+
+
 ;; org-mode
 
 (use-package cl
@@ -75,18 +86,26 @@
 ;; language specific
 
 (use-package lua-mode
-  :ensure t)
+  :ensure t
+  :config
+    (setq lua-indent-level
+      (symbol-value 'tab-width))
+
+    (defun newline-and-indent-same-level ()
+      "Insert a newline, then indent to the same column as the current line."
+      (interactive)
+      (let ((col (save-excursion
+                   (back-to-indentation)
+                   (current-column))))
+        (newline)
+        (indent-to-column col)))
+    (add-hook 'lua-mode-hook (lambda ()
+      (electric-indent-mode -1) ;; disable stupid tab functionality
+      (local-set-key "\r" 'newline-and-indent-same-level))))
 
 
 ;; misc packages
 
 (use-package helm
   :ensure t)
-
-
-;; misc configs
-
-(fset 'yes-or-no-p 'y-or-n-p) ;; prompts accept y/n instead of yes/no
-(menu-bar-mode -1)
-(setq column-number-mode t)
 
