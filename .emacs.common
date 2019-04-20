@@ -1,4 +1,6 @@
 
+;; package manager setup
+
 (require 'package)
 
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
@@ -16,14 +18,29 @@
   (require 'use-package))
 
 
-(use-package org
-  :ensure org-plus-contrib)
+;; org-mode
 
 (use-package cl
   :ensure t)
 
+(use-package org
+  :ensure org-plus-contrib
+  :config
+    (defun org-summary-todo (n-done n-not-done)
+      "Switch entry to DONE when all subentries are DONE, to TODO otherwise."
+        (let (org-log-done org-log-states) ; turn off logging
+          (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+    (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+
+    (global-set-key (kbd "C-c a") 'org-agenda)
+    (global-set-key (kbd "C-c c") 'org-capture)
+    (setq org-log-done 'time))
+
 (use-package org-drill
   :after org)
+
+
+;; evil
 
 (use-package evil
   :ensure t
@@ -31,33 +48,44 @@
     (setq evil-want-C-i-jump nil) ;; fixes TAB in org-mode
     (setq evil-want-C-u-scroll t) ;; fixes C-u scrolling
   :config
-    (evil-mode t))
+    (evil-mode t)
+    (progn
+      (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+      (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+      (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+      (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
 
-;; (use-package org-evil
-;;  :after (org evil)
-;;  :ensure t)
-
-;; (use-package org-learn
-;;   :ensure t)
-;; 
-;; (use-package org-drill
-;;   :load-path "~/.emacs.d/packages/org-drill")
-
-
-(use-package base16-theme
+(use-package evil-commentary
   :ensure t
   :config
-    (load-theme 'base16-default-dark t)
-    (defvar my/base16-colors base16-default-dark-colors)
-    (setq
-      evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
-      evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
-      evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
-      evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
-      evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
-      evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box)))
+    (evil-commentary-mode))
+
+(use-package org-evil
+  :ensure t)
+
+(use-package linum-relative
+  :ensure t
+  :config
+    (linum-mode)
+    (linum-relative-global-mode)
+    (setq linum-relative-current-symbol "")
+    (setq linum-relative-format "%4s\u2502"))
+
+
+;; language specific
+(use-package lua-mode
+  :ensure t)
+
+
+;; misc packages
 
 (use-package helm
   :ensure t)
 
+
+;; misc configs
+
 (fset 'yes-or-no-p 'y-or-n-p) ;; prompts accept y/n instead of yes/no
+(menu-bar-mode -1)
+(setq column-number-mode t)
+
