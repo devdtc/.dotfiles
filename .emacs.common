@@ -1,6 +1,5 @@
 
 ;; package manager setup
-
 (require 'package)
 
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
@@ -27,6 +26,10 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)
+(setq fill-column 120) ;; M-q line wrapping column width
+(setq-default electric-indent-inhibit t)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;; org-mode
@@ -58,13 +61,15 @@
   :init
     (setq evil-want-C-i-jump nil) ;; fixes TAB in org-mode
     (setq evil-want-C-u-scroll t) ;; fixes C-u scrolling
+    (setq evil-shift-width (symbol-value 'tab-width))
   :config
     (evil-mode t)
     (progn
       (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
       (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
       (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-      (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)))
+      (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right))
+    (define-key evil-insert-state-map (kbd "TAB") 'tab-to-tab-stop))
 
 (use-package evil-commentary
   :ensure t
@@ -103,9 +108,18 @@
       (electric-indent-mode -1) ;; disable stupid tab functionality
       (local-set-key "\r" 'newline-and-indent-same-level))))
 
+(use-package haskell-mode
+  :ensure t)
+
+;; (use-package rust-mode
+;;   :ensure t)
 
 ;; misc packages
 
 (use-package helm
   :ensure t)
 
+(use-package highlight-indent-guides
+  :ensure t
+  :init
+    (setq highlight-indent-guides-method 'character))
