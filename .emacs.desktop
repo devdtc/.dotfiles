@@ -2,7 +2,9 @@
 (load "~/.dotfiles/.emacs.common")
 
 (use-package nord-theme
-  :ensure t)
+  :ensure t
+  :config
+    (load-theme 'nord t))
 
 
 (custom-set-variables
@@ -12,9 +14,8 @@
  ;; If there is more than one, they won't work right.
  '(js-indent-level 2)
  '(org-modules
-   (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m)))
- '(package-selected-packages (quote (rust-mode helm evil-visual-mark-mode))))
+   '(org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m))
+ '(package-selected-packages '(rust-mode helm evil-visual-mark-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

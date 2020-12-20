@@ -31,11 +31,10 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(use-package free-keys
+  :ensure t)
 
 ;; org-mode
-
-(use-package cl
-  :ensure t)
 
 (use-package org
   :ensure org-plus-contrib
@@ -45,13 +44,10 @@
         (let (org-log-done org-log-states) ; turn off logging
           (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
     (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
     (global-set-key (kbd "C-c a") 'org-agenda)
     (global-set-key (kbd "C-c c") 'org-capture)
+    (global-set-key (kbd "M-n") 'org-time-stamp-inactive)
     (setq org-log-done 'time))
-
-(use-package org-drill
-  :after org)
 
 
 ;; evil
@@ -79,13 +75,11 @@
 (use-package org-evil
   :ensure t)
 
-(use-package linum-relative
-  :ensure t
+(use-package display-line-numbers
   :config
-    (linum-mode)
-    (linum-relative-global-mode)
-    (setq linum-relative-current-symbol "")
-    (setq linum-relative-format "%4s\u2502"))
+    (global-display-line-numbers-mode)
+    (setq display-line-numbers-type 'visual)
+    (setq display-line-numbers-grow-only t))
 
 
 ;; language specific
@@ -111,8 +105,13 @@
 (use-package haskell-mode
   :ensure t)
 
+(use-package fsharp-mode
+  :defer t
+  :ensure t)
+
 ;; (use-package rust-mode
 ;;   :ensure t)
+
 
 ;; misc packages
 
