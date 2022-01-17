@@ -43,7 +43,7 @@ export TERMINAL=urxvt
 
 xrdb -merge ~/.Xresources
 
-feh --bg-scale /home/dan/bg2.jpg
+~/.fehbg
 
 # MOUSE_SPEED = 1.5
 # xinput set-prop "La-VIEW Technology SteelSeries" "Coordinate Transformation Matrix" ${MOUSE_SPEED}, 0.000000, 0.000000, 0.000000, ${MOUSE_SPEED}, 0.000000, 0.000000, 0.000000, 1.000000
