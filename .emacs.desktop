@@ -1,11 +1,6 @@
 
 (load "~/.dotfiles/.emacs.common")
 
-(use-package nord-theme
-  :ensure t
-  :config
-    (load-theme 'nord t))
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

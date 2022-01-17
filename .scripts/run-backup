@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# use server modtime to reduce API calls
+# load structure into memory to reduce API calls
+# do not warn about skipped symlinks (use --copy-links to enable symlink following)
+s3_args="--update --use-server-modtime --fast-list --skip-links"
+
+copy="rclone -P copy $s3_args"
+sync="rclone -P sync $s3_args"
+
+
+# delete any old pending multi-part uploads
+rclone cleanup s3_backup_crypt:
+
+
+echo
+echo "syncing configs"
+$sync ~/.config/rclone s3_backup_crypt:home/.config/rclone
+
+echo
+echo "syncing documents"
+$copy ~/documents s3_backup_crypt:documents
+
+echo
+echo "syncing misc"
+$copy ~/misc s3_backup_crypt:misc
+
+echo
+echo "syncing pictures"
+$copy ~/pictures s3_backup_crypt:pictures
+
+echo
+echo "syncing projects"
+# sync only the projects not in old/. For those, we copy to reduce risk of loss since most are not version controlled.
+$sync ~/projects s3_backup_crypt:projects --exclude=/old/**
+echo 
+echo "syncing old projects"
+$copy ~/projects/old s3_backup_crypt:projects/old
+

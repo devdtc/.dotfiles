@@ -52,12 +52,18 @@
 
 ;; evil
 
+(use-package undo-tree
+  :ensure t
+  :init
+    (global-undo-tree-mode))
+
 (use-package evil
   :ensure t
   :init
     (setq evil-want-C-i-jump nil) ;; fixes TAB in org-mode
     (setq evil-want-C-u-scroll t) ;; fixes C-u scrolling
     (setq evil-shift-width (symbol-value 'tab-width))
+    (setq evil-undo-system 'undo-tree)
   :config
     (evil-mode t)
     (progn
@@ -107,10 +113,15 @@
 
 (use-package fsharp-mode
   :defer t
+  :ensure t
+  :config
+    (setq-default fsharp-indent-offset 2))
+
+(use-package reason-mode
   :ensure t)
 
-;; (use-package rust-mode
-;;   :ensure t)
+(use-package rust-mode
+  :ensure t)
 
 
 ;; misc packages
@@ -122,3 +133,11 @@
   :ensure t
   :init
     (setq highlight-indent-guides-method 'character))
+
+
+;; theme
+
+(use-package nord-theme
+  :ensure t
+  :config
+    (load-theme 'nord t))
