@@ -1,0 +1,12 @@
+[user]
+	email = devdtc@gmail.com
+	name = Dan
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+	bc3 = trustExitCode
+[merge]
+	tool = vimdiff
+[mergetool]
+	bc3 = trustExitCode

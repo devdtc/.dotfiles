@@ -1,0 +1,26 @@
+
+#  defaults.pcm.!card 1
+#  defaults.pcm.!device 0
+#
+
+pcm.!default {
+  type asym
+  playback.pcm {
+    type plug
+    slave {
+      pcm "dmix:CARD=1,RATE=48000"
+    }
+  }
+   capture.pcm {
+     type plug
+     slave {
+       pcm {
+         type hw
+         card 1
+         device 0
+         rate 44100
+         format S16_LE
+       }
+     }
+   }
+}

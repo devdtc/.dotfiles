@@ -1,0 +1,3 @@
+:set -ignore-package pretty-simple -package pretty-simple
+:def! pretty \ _ -> pure ":set -interactive-print Text.Pretty.Simple.pPrint"
+:pretty
