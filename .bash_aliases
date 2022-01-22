@@ -16,7 +16,7 @@ alias red="emacsclient -e '(kill-emacs)'; emacs --daemon" # restart emacs daemon
 alias ec="emacsclient -c --alternate-editor=\"\"" # open emacs client, starting daemon if needed
 
 # git
-alias gup="git add . && git commit -m \"Update $(date +%c)\" && gitp ush" # git update and push
+alias gup="git add .; git commit -m \"Update $(date +%c)\"; git push" # git update and push
 
 alias snip="scrot -s ~/tmp/screenshot.png && ~/.third_party/imgur.sh/imgur.sh ~/tmp/screenshot.png && rm ~/tmp/screenshot.png"
 

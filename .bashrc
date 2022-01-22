@@ -17,7 +17,7 @@ fi
 
 # Put your fun stuff here.
 
-~/.bash_aliases
+source ~/.bash_aliases
 
 set -o vi
 export EDITOR=vim

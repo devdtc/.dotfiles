@@ -9,7 +9,7 @@ URxvt*font: xft:Droid Sans Mono:size=9
 
 Xft.antialias:  1
 Xft.autohint:   0
-Xft.dpi:    96
+Xft.dpi:    110
 Xft.hinting:    1
 Xft.hintstyle:  hintmedium
 Xft.lcdfilter:  lcddefault
