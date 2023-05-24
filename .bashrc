@@ -21,6 +21,8 @@ source ~/.bash_aliases
 
 set -o vi
 export EDITOR=vim
-export PATH="$PATH:~/.local/bin:~/.scripts:/home/dan/.dotnet/tools"
-export DOTNET_ROOT=/opt/dotnet_core
+
+# /opt/dotnet-sdk-bin-5.0
+export DOTNET_ROOT=~/.dotnet
+export PATH="$PATH:~/.local/bin:~/.scripts:/home/dan/.dotnet/tools:$DOTNET_ROOT"
 
