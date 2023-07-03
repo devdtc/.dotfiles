@@ -18,15 +18,15 @@ echo "syncing configs"
 $sync ~/.config/rclone s3_backup_crypt:home/.config/rclone
 
 echo
-echo "syncing documents"
+echo "copying documents"
 $copy ~/documents s3_backup_crypt:documents
 
 echo
-echo "syncing misc"
+echo "copying misc"
 $copy ~/misc s3_backup_crypt:misc
 
 echo
-echo "syncing pictures"
+echo "copying pictures"
 $copy ~/pictures s3_backup_crypt:pictures
 
 echo
@@ -34,6 +34,6 @@ echo "syncing projects"
 # sync only the projects not in old/. For those, we copy to reduce risk of loss since most are not version controlled.
 $sync ~/projects s3_backup_crypt:projects --exclude=/old/**
 echo 
-echo "syncing old projects"
+echo "copying old projects"
 $copy ~/projects/old s3_backup_crypt:projects/old
 
